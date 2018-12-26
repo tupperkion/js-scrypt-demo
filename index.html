@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>Scrypt</title>
+<script src="browser/scrypt.js"></script>
+<script>
+
+window.go = function() {
+let password =	document.getElementById("password").value;
+let salt =	document.getElementById("salt").value;
+let N = 	2 ** document.getElementById("n").value;
+let r = 	document.getElementById("r").value;
+let p = 	document.getElementById("p").value;
+let L = 	document.getElementById("l").value;
+scrypt_module_factory(scrypt => {
+ 	document.getElementById("result").innerHTML = scrypt.to_hex(
+		scrypt.crypto_scrypt(
+			scrypt.encode_utf8(password),
+			scrypt.encode_utf8(salt),
+			N, r, p, L
+		)
+	);
+});
+}, {requested_total_memory: N * 2048}
+}
+</script>
+<body style="font-family: sans-serif">
+Password: <input id="password" placeholder="!P@33w07d!"><br>
+Salt:     <input id="salt" placeholder="abcdjumble123"></br>
+logN:     <input type="number" id="n" value="14"></br>
+r:        <input type="number" id="r" value="8"></br>
+p:        <input type="number" id="p" value="1"></br>
+Length:   <input type="number" id="l" value="32"></br>
+<button onclick="go();">Generate hash</button>
+<hr>
+<code id="result">Hash will show up here</code>
+</body>
+</html>
