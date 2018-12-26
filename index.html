@@ -10,6 +10,7 @@ let salt =	document.getElementById("salt").value;
 let N = 	2 ** document.getElementById("n").value;
 let r = 	document.getElementById("r").value;
 let p = 	document.getElementById("p").value;
+let msize =	document.getElementById("msize").value;
 let L = 	document.getElementById("l").value;
 scrypt_module_factory(scrypt => {
  	document.getElementById("result").innerHTML = scrypt.to_hex(
@@ -19,7 +20,7 @@ scrypt_module_factory(scrypt => {
 			N, r, p, L
 		)
 	);
-}, {requested_total_memory: N * 2048});
+}, {requested_total_memory: N * msize});
 }
 </script>
 <body style="font-family: sans-serif">
@@ -29,6 +30,7 @@ logN:     <input type="number" id="n" value="14"></br>
 r:        <input type="number" id="r" value="8"></br>
 p:        <input type="number" id="p" value="1"></br>
 Length:   <input type="number" id="l" value="32"></br>
+Available memory: <input type="number" id="msize" value="2048"></br>
 <button onclick="go();">Generate hash</button>
 <hr>
 <code id="result">Hash will show up here</code>
